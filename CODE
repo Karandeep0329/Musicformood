@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.NumberFormat;
-
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 class start
 {
@@ -10,19 +11,22 @@ public static void main(String [] args)
 {
 new first();
 }
-}
 
+}
 class first
 {
-JButton Fbtn, Sbtn, Sbtn2, SMb, TMb, SMb1, SMb2, SMb3, TMb1, TMb2, TMb3, Hb, Hb1, Hb2, EXIT, EXIT2, EXIT3, EXIT3_A, EXIT_A, EXIT2_A, SHUFFLE, SHUFFLE_A, SHUFFLE2, SHUFFLE2_A, SHUFFLE3, SHUFFLE3_A;
+JButton Fbtn, Sbtn, Sbtn2, SMb, TMb, SMb1, SMb2, SMb3, TMb1, TMb2, TMb3, Hb, Hb1, Hb2, EXIT, EXIT2, EXIT3, EXIT3_A, EXIT_A, EXIT2_A, SHUFFLE, SHUFFLE_A, SHUFFLE2, SHUFFLE2_A, SHUFFLE3, SHUFFLE3_A, Create, Save, Sort;
 JFrame frame, Sframe, Sframe1, Sframe2, Hframe;
 JTextField t1;
-JLabel Flabel, Slabel, SlabelA, SlabelB, Slabel1, Slabel2, Hlabel, Plabel, Plabel2, HPlabel,HPlabel2, PPlabel, PPlabel2;
-JPanel Epanel, Hpanel, Hpanel2, Ppanel, Ppanel2, Epanel2;
+JTextField text[];
+JLabel Flabel, Slabel, SlabelA, SlabelB, Slabel1, Slabel2, Hlabel, Plabel, Plabel2, HPlabel,HPlabel2, PPlabel, PPlabel2, timelabel;
+JPanel Epanel, Hpanel, Hpanel2, Ppanel, Ppanel2, Epanel2, Cpanel;
 Cursor Fcur, Scur;
 ImageIcon Ficon, Fa, Sa, Sb, SM, TM, SM1, SM2, SM3,TM1, TM2, TM3;
 Container F, S, S1, S2, H1;
-String name;
+String name, time;
+Calendar Calen;
+SimpleDateFormat timeformat;
 
 public first()
 {
@@ -63,7 +67,11 @@ SHUFFLE3 = new JButton("SHUFFLE");
 
 SHUFFLE3_A = new JButton("SHUFFLE");
 
+Create = new JButton("Add Music");
 
+Save = new JButton("Save");
+
+Sort = new JButton("Sort");
 
 frame = new JFrame();
 frame.setVisible(true);
@@ -77,12 +85,12 @@ F = frame.getContentPane();
 F.setBackground(new Color(236,242 ,255 ));
 frame.setResizable(false);
 
+
 Fa = new ImageIcon("user.png ");
 Flabel = new JLabel( Fa, JLabel.CENTER);
 Flabel.setBounds(100,50,500,100);
 t1 = new JTextField();
 t1.setBounds(615,410,120,30);
-
 
 
 Fbtn = new JButton("GO");
@@ -195,7 +203,7 @@ else if(e.getSource()== SMb)
 {
 Hframe = new JFrame("MusicForMood");
 Hframe.setSize(1500,700);
-Hframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+Hframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 Hframe.setLocationRelativeTo(Sframe1);
 Hframe.setVisible(true);
 Hframe.setResizable(false);
@@ -207,6 +215,10 @@ Hframe.setLayout(null);
 Hlabel.setText("Choose language");
 Hlabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 Hlabel.setBounds(650,25,300,100);
+
+Create.setSize(100,100);
+Create.setLocation(1240,510);
+Create.setBackground(new Color(255, 244, 210));
 
 Hb.setSize(100,100);
 Hb.setLocation(140,110);
@@ -268,19 +280,27 @@ SHUFFLE3_A.setSize(90,30);
 SHUFFLE3_A.setLocation(50,550);
 SHUFFLE3_A.setBackground(new Color(255,244,210));
 
+text = new JTextField[5];
+
+Save.setSize(90,30); 
+Save.setLocation(50,525);
+Save.setBackground(new Color(255, 244, 210));
+
+Sort.setSize(90,30); 
+Sort.setLocation(50,525);
+Sort.setBackground(new Color(255, 244, 210));
+
 Epanel = new JPanel();
 Epanel.setBounds(20,30,400,600);
 Epanel.setBackground(new Color(236, 242, 255));
 Epanel.setVisible(false);
-
 
 Epanel2 = new JPanel();
 Epanel2.setBounds(20,30,400,600);
 Epanel2.setBackground(new Color(236, 242, 255));
 Epanel2.setVisible(false);
 
-
-Plabel = new JLabel();
+Plabel = new JLabel();                                          
 Epanel.setLayout(null);
 Plabel.setText("<html>Here you go: <br/> The Nights <br/> Bad Guy <br/> Paradise <br/> Beat it <br/> Starboy <br/> Up&Up <br/> Montero <br/> Beggin' <br/> Feeling Good <br/> Dancin <br/> One Dance <br/></html>");
 Plabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
@@ -291,7 +311,6 @@ Epanel2.setLayout(null);
 Plabel2.setText("<html>Here you go: <br/> <br/> Blinding Lights <br/> Hymn for the weekend <br/> Summer <br/> Often <br/> 24karet <br/> Happy <br/> The Lazy Song <br/> Makeba <br/> Watermelon Sugar <br/> Levitating <br/></html>");
 Plabel2.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 Plabel2.setBounds(85,20,500,500);
-
 
 Epanel.add(Plabel);
 Epanel.add(EXIT);
@@ -355,6 +374,17 @@ PPlabel2.setText("<html>Here you go: <br/> Old Skool <br/> Woofer <br/> Clash <b
 PPlabel2.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 PPlabel2.setBounds(85,20,500,500);
 
+Cpanel = new JPanel();
+Cpanel.setLayout(new GridLayout(5, 1));
+Cpanel.setBounds(20,30,400,600);
+Cpanel.setBackground(new Color(236, 242, 255));
+Cpanel.setVisible(false);
+
+for (int i = 0; i < text.length; i++) {
+    text[i] = new JTextField();
+    Cpanel.add(text[i]);
+}
+
 Ppanel.add(EXIT3);
 Ppanel.add(PPlabel);
 Ppanel.add(SHUFFLE3);
@@ -363,26 +393,44 @@ Ppanel2.add(EXIT3_A);
 Ppanel2.add(PPlabel2);
 Ppanel2.add(SHUFFLE3_A);
 
+Cpanel.add(Save);
+Cpanel.add(Sort);
+
 H1.add(Epanel);
 H1.add(Hpanel);
 H1.add(Ppanel);
 H1.add(Epanel2);
 H1.add(Hpanel2);
 H1.add(Ppanel2);
-
+H1.add(Cpanel);
 H1.add(Hb);
 H1.add(Hb1);
 H1.add(Hb2);
 H1.add(Hlabel);
+H1.add(Create);
 
 
+Hb.setCursor(Fcur);Hb1.setCursor(Fcur);Hb2.setCursor(Fcur);EXIT.setCursor(Fcur);EXIT2.setCursor(Fcur);EXIT3.setCursor(Fcur);EXIT2_A.setCursor(Fcur);EXIT3_A.setCursor(Fcur);EXIT_A.setCursor(Fcur);SHUFFLE.setCursor(Fcur);SHUFFLE2.setCursor(Fcur);SHUFFLE3.setCursor(Fcur);SHUFFLE_A.setCursor(Fcur);SHUFFLE2_A.setCursor(Fcur);SHUFFLE3_A.setCursor(Fcur);Create.setCursor(Fcur);Save.setCursor(Fcur);
+}
+else if(e.getSource()==Create)
+{
+    Cpanel.setVisible(true);
+    Hpanel.setVisible(false);
+    Hb1.setVisible(false);
+    Hlabel.setVisible(false);
+    Hb2.setVisible(false);
+    Epanel.setVisible(false);
+    Ppanel.setVisible(false);
+    Hb.setVisible(false);
+    Epanel2.setVisible(false);
+    Ppanel2.setVisible(false);
+    Create.setVisible(false);
 }
 else if(e.getSource()==SHUFFLE)
 {
     Epanel.setVisible(false);
     Epanel2.setVisible(true);
 }
-
 else if(e.getSource()==SHUFFLE_A)
 {
     Epanel2.setVisible(false);
@@ -390,10 +438,9 @@ else if(e.getSource()==SHUFFLE_A)
 }
 else if(e.getSource()==SHUFFLE2)
 {
-    Hpanel.setVisible(false);
+    Hpanel.setVisible(false);   
     Hpanel2.setVisible(true);
 }
-
 else if(e.getSource()==SHUFFLE2_A)
 {
     Hpanel2.setVisible(false);
@@ -404,14 +451,12 @@ else if(e.getSource()==SHUFFLE3)
     Ppanel.setVisible(false);
     Ppanel2.setVisible(true);
 }
-
 else if(e.getSource()==SHUFFLE3_A)
 {
     Ppanel2.setVisible(false);
     Ppanel.setVisible(true);
 }
-
-else if(e.getSource()==EXIT || e.getSource()==EXIT2 || e.getSource()==EXIT3 || e.getSource()==EXIT_A || e.getSource()==EXIT2_A || e.getSource()==EXIT3_A)
+else if(e.getSource()==EXIT || e.getSource()==EXIT2 || e.getSource()==EXIT3 || e.getSource()==EXIT_A || e.getSource()==EXIT2_A || e.getSource()==EXIT3_A || e.getSource()==Save)
 {
     Epanel.setVisible(false);
     Hpanel.setVisible(false);
@@ -421,9 +466,12 @@ else if(e.getSource()==EXIT || e.getSource()==EXIT2 || e.getSource()==EXIT3 || e
     Hb1.setVisible(true);
     Hb2.setVisible(true);
     Hlabel.setVisible(true);
+    Create.setVisible(true);
     Epanel2.setVisible(false);
     Hpanel2.setVisible(false);
+    Cpanel.setVisible(false);
 }
+
 else if(e.getSource()==Hb)
 {
     Hpanel.setVisible(false);
@@ -435,7 +483,7 @@ else if(e.getSource()==Hb)
     Hb.setVisible(false);
     Epanel2.setVisible(false);
     Ppanel2.setVisible(false);
-
+    Create.setVisible(false);
 }
 else if(e.getSource()==Hb1)
 {
@@ -447,7 +495,7 @@ else if(e.getSource()==Hb1)
         Epanel.setVisible(false);
         Ppanel.setVisible(false);
         Ppanel2.setVisible(false);
-        
+        Create.setVisible(false);
 
 }
 else if(e.getSource()==Hb2)
@@ -460,6 +508,7 @@ else if(e.getSource()==Hb2)
     Ppanel.setVisible(true);
     Hpanel.setVisible(false);
     Ppanel2.setVisible(false);
+    Create.setVisible(false);
 
 }
 if(t1.getText().isEmpty() || t1.getText().endsWith("1")|| t1.getText().endsWith("2")|| t1.getText().endsWith("3")|| t1.getText().endsWith("4")|| t1.getText().endsWith("5")|| t1.getText().endsWith("6")|| t1.getText().endsWith("7")|| t1.getText().endsWith("8")|| t1.getText().endsWith("9")|| t1.getText().endsWith("0"))
@@ -506,9 +555,6 @@ S.add(Sbtn2);
 S.add(SlabelA);
 S.add(SlabelB);
 }
-
-
-
 } //Listener class ends here
 }
 MyListener ml = new MyListener();
@@ -532,5 +578,78 @@ EXIT3.addActionListener(ml);
 EXIT3_A.addActionListener(ml);
 SHUFFLE3.addActionListener(ml);
 SHUFFLE3_A.addActionListener(ml);
+Create.addActionListener(ml);
+Save.addActionListener(ml);
+Sort.addActionListener(e -> sortTextfield());
+}
+
+
+public void mergeSort(JTextField[]arr, int left, int right)
+{
+    if(left<right)
+    {
+        int mid = left +(right-left)/2;
+        mergeSort(arr,left,mid);
+        mergeSort(arr, mid+1, right);
+        merge(arr,left, mid, right);
+    }
+}
+public void merge(JTextField[] arr, int left, int mid, int right)
+{
+    int n1= mid-left+1;
+    int n2 = right-mid;
+
+    JTextField[] leftArr = new JTextField[n1];
+    JTextField[] rightArr = new JTextField[n2];
+    
+    for(int i=0;i<n1;++i)
+    {
+        leftArr[i] = arr[left+i];
+    }
+    for(int j=0;j<n2;++j)
+    {
+        rightArr[j] = arr[mid+1+j];
+    }
+    int i=0,j=0;
+    int k = left;
+    while(i<n1 && j<n2)
+    {
+        if(leftArr[i].getText().compareTo(rightArr[j].getText())<=0)
+        {
+            arr[k] = leftArr[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = rightArr[j];
+            j++;
+        }
+        k++;
+    }
+    while(i<n1)
+    {
+        arr[k] = leftArr[i];
+        i++;
+        k++;
+    }
+    while(j<n2)
+    {
+        arr[k] = rightArr[j];
+        j++;
+        k++;
+    }
+}
+public void sortTextfield()
+{
+    mergeSort(text, 0, text.length-1);
+    Cpanel.removeAll();
+    for(JTextField textField : text)
+    {
+        Cpanel.add(textField);
+    }
+    Cpanel.add(Sort);
+    Cpanel.add(Save);
+    Cpanel.revalidate();
+    Cpanel.repaint();
 }
 }
