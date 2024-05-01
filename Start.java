@@ -1,6 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSetMetaData;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 public class Start 
 {
 public static void main(String [] args)
@@ -205,383 +208,199 @@ class Single{
         SMb.addActionListener(ml);
     }     
 }
-class SingleHappy
-{
-    SingleHappy()
-    {
-        JButton Hb, Hb1, Hb2, EXIT, EXIT2, EXIT3, EXIT3_A, EXIT_A, EXIT2_A, SHUFFLE, SHUFFLE_A, SHUFFLE2, SHUFFLE2_A, SHUFFLE3, SHUFFLE3_A, Create, Save, Sort;
-        JFrame  Hframe;
-        JTextField text;
-        JLabel Hlabel, Plabel, Plabel2, HPlabel,HPlabel2, PPlabel, PPlabel2;
-        JPanel Epanel, Hpanel, Hpanel2, Ppanel, Ppanel2, Epanel2, Cpanel;
-        Cursor SHcur;
-        Container  H1;
-        Hb = new JButton("English");
-        Hb1 = new JButton("HINDI");
-        Hb2 = new JButton("PUNJABI");
-        EXIT = new JButton("EXIT");
-        EXIT2 = new JButton("EXIT");
-        EXIT2_A = new JButton("EXIT");
-        EXIT3 = new JButton("EXIT");
-        EXIT3_A = new JButton("EXIT");
-        EXIT_A = new JButton("EXIT");
-        SHUFFLE = new JButton("SHUFFLE");
-        SHUFFLE_A = new JButton("SHUFFLE");
-        SHUFFLE2 = new JButton("SHUFFLE");
-        SHUFFLE2_A = new JButton("SHUFFLE");
-        SHUFFLE3 = new JButton("SHUFFLE");
-        SHUFFLE3_A = new JButton("SHUFFLE");
-        Create = new JButton("Add Music");
-        Save = new JButton("Save");
-        Sort = new JButton("Sort");               
+class SingleHappy {
+    private JButton Hb, Hb1, Hb2;
+    private JFrame Hframe;
+    private JLabel Hlabel;
+    private Container H1;
+    private JPanel panel, Hpanel, Ppanel;
+    private JTable table, Htable, Ptable;
+    private JScrollPane scrollPane, HscrollPane, PscrollPane;
+    private Cursor cur;
+
+    public SingleHappy() {
         Hframe = new JFrame("MusicForMood");
-        Hframe.setSize(1500,700);
+        Hframe.setSize(1500, 700);
         Hframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Hframe.setLocation(20,50);
-        Hframe.setVisible(true);
+        Hframe.setLocation(20, 50);
         Hframe.setResizable(false);
+
         H1 = Hframe.getContentPane();
-        H1.setBackground(new Color(229,209,250 ));
+        H1.setBackground(new Color(229, 209, 250));
 
-        Hlabel = new JLabel();
-        Hframe.setLayout(null);
-        Hlabel.setText("Choose language");
+        Hlabel = new JLabel("Choose language");
         Hlabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        Hlabel.setBounds(650,25,300,100);
+        Hlabel.setBounds(650, 25, 300, 100);
 
-        Create.setSize(100,100);
-        Create.setLocation(1240,510);
-        Create.setBackground(new Color(255, 244, 210));
-
-        Hb.setSize(100,100);
-        Hb.setLocation(140,110);
+        Hb = new JButton("English");
+        Hb.setBounds(140, 110, 100, 100);
         Hb.setBackground(new Color(255, 244, 210));
 
-        Hb1.setSize(100,100);
-        Hb1.setLocation(700,110);
+        Hb1 = new JButton("Hindi");
+        Hb1.setBounds(140, 250, 100, 100);
         Hb1.setBackground(new Color(255, 244, 210));
 
-        Hb2.setSize(100,100);
-        Hb2.setLocation(1250,110);
+        Hb2 = new JButton("Punjabi");
+        Hb2.setBounds(140, 390, 100, 100);
         Hb2.setBackground(new Color(255, 244, 210));
 
-        EXIT.setSize(90,30); 
-        EXIT.setLocation(230,550);
-        EXIT.setBackground(new Color(255, 244, 210));
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBounds(1000,30,280,500);
+        panel.setVisible(false); 
+        panel.setBackground(new Color(236, 242, 255));
+        panel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
-        EXIT2.setSize(90,30); 
-        EXIT2.setLocation(230,550);
-        EXIT2.setBackground(new Color(255, 244, 210));
-
-        EXIT3.setSize(90,30); 
-        EXIT3.setLocation(230,550);
-        EXIT3.setBackground(new Color(255, 244, 210));
-
-        EXIT3_A.setSize(90,30); 
-        EXIT3_A.setLocation(230,550);
-        EXIT3_A.setBackground(new Color(255, 244, 210));
-
-        EXIT_A.setSize(90,30); 
-        EXIT_A.setLocation(230,550);
-        EXIT_A.setBackground(new Color(255, 244, 210));
-
-        SHUFFLE.setSize(90,30);
-        SHUFFLE.setLocation(50,550);
-        SHUFFLE.setBackground(new Color(255,244,210));
-
-        SHUFFLE_A.setSize(90,30);
-        SHUFFLE_A.setLocation(50,550);
-        SHUFFLE_A.setBackground(new Color(255,244,210));
-
-        EXIT2_A.setSize(90,30); 
-        EXIT2_A.setLocation(230,550);
-        EXIT2_A.setBackground(new Color(255, 244, 210));
-
-        SHUFFLE2.setSize(90,30);
-        SHUFFLE2.setLocation(50,550);
-        SHUFFLE2.setBackground(new Color(255,244,210));
-
-        SHUFFLE2_A.setSize(90,30);
-        SHUFFLE2_A.setLocation(50,550);
-        SHUFFLE2_A.setBackground(new Color(255,244,210));
-
-        SHUFFLE3.setSize(90,30);
-        SHUFFLE3.setLocation(50,550);
-        SHUFFLE3.setBackground(new Color(255,244,210));
-
-        SHUFFLE3_A.setSize(90,30);
-        SHUFFLE3_A.setLocation(50,550);
-        SHUFFLE3_A.setBackground(new Color(255,244,210));
-
-        text = new JTextField();
-
-        Save.setSize(90,30); 
-        Save.setLocation(50,525);
-        Save.setBackground(new Color(255, 244, 210));
-
-        Sort.setSize(90,30); 
-        Sort.setLocation(50,525);
-        Sort.setBackground(new Color(255, 244, 210));
-
-        Epanel = new JPanel();
-        Epanel.setBounds(20,30,400,600);
-        Epanel.setBackground(new Color(236, 242, 255));
-        Epanel.setVisible(false);
-
-        Epanel2 = new JPanel();
-        Epanel2.setBounds(20,30,400,600);
-        Epanel2.setBackground(new Color(236, 242, 255));
-        Epanel2.setVisible(false);
-
-        Plabel = new JLabel();                                          
-        Epanel.setLayout(null);
-        Plabel.setText("<html>Here you go: <br/> The Nights <br/> Bad Guy <br/> Paradise <br/> Beat it <br/> Starboy <br/> Up&Up <br/> Montero <br/> Beggin' <br/> Feeling Good <br/> Dancin <br/> One Dance <br/></html>");
-        Plabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        Plabel.setBounds(85,20,500,500);
-
-        Plabel2 = new JLabel();
-        Epanel2.setLayout(null);
-        Plabel2.setText("<html>Here you go: <br/> <br/> Blinding Lights <br/> Hymn for the weekend <br/> Summer <br/> Often <br/> 24karet <br/> Happy <br/> The Lazy Song <br/> Makeba <br/> Watermelon Sugar <br/> Levitating <br/></html>");
-        Plabel2.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        Plabel2.setBounds(85,20,500,500);
-
-        Epanel.add(Plabel);
-        Epanel.add(EXIT);
-        Epanel.add(SHUFFLE);
-
-        Epanel2.add(Plabel2);
-        Epanel2.add(EXIT_A);
-        Epanel2.add(SHUFFLE_A);
+        table = new JTable();
+        table.setRowHeight(30);
+        scrollPane = new JScrollPane(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         Hpanel = new JPanel();
-        Hpanel.setBounds(500,30,400,600);
+        Hpanel.setLayout(new BorderLayout());
+        Hpanel.setBounds(1000,30,280,500);
+        Hpanel.setVisible(false); 
         Hpanel.setBackground(new Color(236, 242, 255));
-        Hpanel.setVisible(false);
+        Hpanel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
-        Hpanel2 = new JPanel();
-        Hpanel2.setBounds(500,30,400,600);
-        Hpanel2.setBackground(new Color(236, 242, 255));
-        Hpanel2.setVisible(false);
-
-        HPlabel = new JLabel();
-        Hpanel.setLayout(null);
-        HPlabel.setText("<html>Here you go: <br/> Dil Chahta Hai <br/> Bad Guy <br/> Hairat <br/> Matargasti <br/> Roobaroo <br/> Lift Karadey <br/> Dhan Te Nan <br/> Dus Bahane <br/> Wake Up Sid <br/> Tashan Mein <br/> Behka <br/></html>");
-        HPlabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        HPlabel.setBounds(85,20,500,500);
-
-        HPlabel2 = new JLabel();
-        Hpanel2.setLayout(null);
-        HPlabel2.setText("<html>Here you go: <br/> <br/> Manja <br/> Rock On! <br/> Masakali <br/> Hai Junoon <br/> Ilahi <br/> Safar <br/> Aye Khuda <br/> Kyon <br/> Saansein <br/> Khalbali <br/></html>");
-        HPlabel2.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        HPlabel2.setBounds(85,20,500,500);
-
-        Hpanel.add(HPlabel);
-        Hpanel.add(EXIT2);
-        Hpanel.add(SHUFFLE2);
-
-        Hpanel2.add(HPlabel2);
-        Hpanel2.add(EXIT2_A);
-        Hpanel2.add(SHUFFLE2_A);
+        Htable = new JTable();
+        Htable.setRowHeight(30);
+        HscrollPane = new JScrollPane(Htable);
+        Hpanel.add(HscrollPane, BorderLayout.CENTER);
 
         Ppanel = new JPanel();
-        Ppanel.setLayout(null);
-        Ppanel.setBounds(1000,30,400,600);
+        Ppanel.setLayout(new BorderLayout());
+        Ppanel.setBounds(1000,30,280,500);
+        Ppanel.setVisible(false); 
         Ppanel.setBackground(new Color(236, 242, 255));
-        Ppanel.setVisible(false);
+        Ppanel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
-        Ppanel2 = new JPanel();
-        Ppanel2.setLayout(null);
-        Ppanel2.setBounds(1000,30,400,600);
-        Ppanel2.setBackground(new Color(236, 242, 255));
-        Ppanel2.setVisible(false);
+        Ptable = new JTable();
+        Ptable.setRowHeight(30);
+        PscrollPane = new JScrollPane(Ptable);
+        Ppanel.add(PscrollPane, BorderLayout.CENTER);
 
-        PPlabel = new JLabel();
-        Ppanel.setLayout(null);
-        PPlabel.setText("<html>Here you go: <br/> Born To Shine <br/> Brown Boi <br/> Offshore <br/> Affair <br/> Jawani <br/> Brown Rang <br/> Droptop <br/> We Rollin <br/> Levels <br/> Desires <br/> Peaches <br/></html>");
-        PPlabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        PPlabel.setBounds(85,20,500,500);
+        cur = new Cursor(Cursor.HAND_CURSOR);
 
-        PPlabel2 = new JLabel();
-        Ppanel2.setLayout(null);
-        PPlabel2.setText("<html>Here you go: <br/> Old Skool <br/> Woofer <br/> Clash <br/> Spaceship <br/> Brown Munde <br/> Elevated <br/> Tere te <br/> Insane <br/> Toxic <br/> Daku <br/> Jatt Life <br/></html>");
-        PPlabel2.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-        PPlabel2.setBounds(85,20,500,500);
-
-        Cpanel = new JPanel();
-        Cpanel.setLayout(new GridLayout(5, 1));
-        Cpanel.setBounds(20,30,400,600);
-        Cpanel.setBackground(new Color(236, 242, 255));
-        Cpanel.setVisible(false);
-        Cpanel.add(text);
-        Save.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent ae)
-            {
-                String data = text.getText();
-                try
-                {
-                Conn c = new Conn();
-                String query = "insert into playlist values('"+data+"')";
-                c.stmt.executeUpdate(query);
-                }
-                catch(Exception e)
-                {
-                    System.out.println(e);
-                }
-            }    
-        });
-
-        SHcur = new Cursor(Cursor.HAND_CURSOR);
-        Hb.setCursor(SHcur);Hb1.setCursor(SHcur);Hb2.setCursor(SHcur);EXIT.setCursor(SHcur);EXIT2.setCursor(SHcur);EXIT3.setCursor(SHcur);EXIT2_A.setCursor(SHcur);EXIT3_A.setCursor(SHcur);EXIT_A.setCursor(SHcur);SHUFFLE.setCursor(SHcur);SHUFFLE2.setCursor(SHcur);SHUFFLE3.setCursor(SHcur);SHUFFLE_A.setCursor(SHcur);SHUFFLE2_A.setCursor(SHcur);SHUFFLE3_A.setCursor(SHcur);Create.setCursor(SHcur);Save.setCursor(SHcur);
-
-        Ppanel.add(EXIT3);
-        Ppanel.add(PPlabel);
-        Ppanel.add(SHUFFLE3);
-
-        Ppanel2.add(EXIT3_A);
-        Ppanel2.add(PPlabel2);
-        Ppanel2.add(SHUFFLE3_A);
-
-        Cpanel.add(Save);
-        Cpanel.add(Sort);
-
-        H1.add(Epanel);
-        H1.add(Hpanel);
-        H1.add(Ppanel);
-        H1.add(Epanel2);
-        H1.add(Hpanel2);
-        H1.add(Ppanel2);
-        H1.add(Cpanel);
+        H1.setLayout(null);
+        H1.add(Hlabel);
         H1.add(Hb);
         H1.add(Hb1);
         H1.add(Hb2);
-        H1.add(Hlabel);
-        H1.add(Create);
+        H1.add(panel);
+        H1.add(Hpanel);
+        H1.add(Ppanel);
+        Hb.setCursor(cur);
+        Hb1.setCursor(cur);
+        Hb2.setCursor(cur);
 
-        class MyListener implements ActionListener
-        {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-                if(e.getSource()==Create)
-                {
-                    Cpanel.setVisible(true);
+        Hb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    Conn c = new Conn();
+                    String query = "SELECT * FROM playlist";
+                    ResultSet resultSet = c.stmt.executeQuery(query);
+                    DefaultTableModel model = new DefaultTableModel();
+
+                    ResultSetMetaData metaData = resultSet.getMetaData();
+                    int columnCount = metaData.getColumnCount();
+                    for (int i = 1; i <= columnCount; i++) {
+                        model.addColumn(metaData.getColumnName(i));
+                    }
+
+                    while (resultSet.next()) {
+                        Object[] rowData = new Object[columnCount];
+                        for (int i = 0; i < columnCount; i++) {
+                            rowData[i] = resultSet.getObject(i + 1);
+                        }
+                        model.addRow(rowData);
+                    }
+                    table.setModel(model);
+                    panel.setVisible(true); 
                     Hpanel.setVisible(false);
-                    Hb1.setVisible(false);
-                    Hlabel.setVisible(false);
-                    Hb2.setVisible(false);
-                    Epanel.setVisible(false);
                     Ppanel.setVisible(false);
-                    Hb.setVisible(false);
-                    Epanel2.setVisible(false);
-                    Ppanel2.setVisible(false);
-                    Create.setVisible(false);
+                    resultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
                 }
-                else if(e.getSource()==SHUFFLE)
-                {
-                    Epanel.setVisible(false);
-                    Epanel2.setVisible(true);
-                }
-                else if(e.getSource()==SHUFFLE_A)
-                {
-                    Epanel2.setVisible(false);
-                    Epanel.setVisible(true);
-                }
-                else if(e.getSource()==SHUFFLE2)
-                {
-                    Hpanel.setVisible(false);   
-                    Hpanel2.setVisible(true);
-                }
-                else if(e.getSource()==SHUFFLE2_A)
-                {
-                    Hpanel2.setVisible(false);
+            }
+        });
+        Hb1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent Hin) {
+                try {
+                    Conn c = new Conn();
+                    String Hquery = "SELECT * FROM Hindiplaylist";
+                    ResultSet HresultSet = c.stmt.executeQuery(Hquery);
+                    DefaultTableModel Hmodel = new DefaultTableModel();
+
+                    ResultSetMetaData HmetaData = HresultSet.getMetaData();
+                    int HcolumnCount = HmetaData.getColumnCount();
+                    for (int i = 1; i <= HcolumnCount; i++) {
+                        Hmodel.addColumn(HmetaData.getColumnName(i));
+                    }
+
+                    while (HresultSet.next()) {
+                        Object[] HrowData = new Object[HcolumnCount];
+                        for (int i = 0; i < HcolumnCount; i++) {
+                            HrowData[i] = HresultSet.getObject(i + 1);
+                        }
+                        Hmodel.addRow(HrowData);
+                    }
+
+                    Htable.setModel(Hmodel);
+                    panel.setVisible(false);
                     Hpanel.setVisible(true);
-                }
-                else if(e.getSource()==SHUFFLE3)
-                {
                     Ppanel.setVisible(false);
-                    Ppanel2.setVisible(true);
+                    
+                    HresultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
                 }
-                else if(e.getSource()==SHUFFLE3_A)
-                {
-                    Ppanel2.setVisible(false);
+            }
+        });
+        Hb2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent Hin) {
+                try {
+                    Conn c = new Conn();
+                    String Pquery = "SELECT * FROM Punjabiplaylist";
+                    ResultSet PresultSet = c.stmt.executeQuery(Pquery);
+                    DefaultTableModel Pmodel = new DefaultTableModel();
+
+                    ResultSetMetaData PmetaData = PresultSet.getMetaData();
+                    int PcolumnCount = PmetaData.getColumnCount();
+                    for (int i = 1; i <= PcolumnCount; i++) {
+                        Pmodel.addColumn(PmetaData.getColumnName(i));
+                    }
+
+                    while (PresultSet.next()) {
+                        Object[] ProwData = new Object[PcolumnCount];
+                        for (int i = 0; i < PcolumnCount; i++) {
+                            ProwData[i] = PresultSet.getObject(i + 1);
+                        }
+                        Pmodel.addRow(ProwData);
+                    }
+
+                    Ptable.setModel(Pmodel);
+                    panel.setVisible(false);
+                    Hpanel.setVisible(false);
                     Ppanel.setVisible(true);
+ 
+                    PresultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
                 }
-                else if(e.getSource()==EXIT || e.getSource()==EXIT2 || e.getSource()==EXIT3 || e.getSource()==EXIT_A || e.getSource()==EXIT2_A || e.getSource()==EXIT3_A || e.getSource()==Save)
-                {
-                    Epanel.setVisible(false);
-                    Hpanel.setVisible(false);
-                    Ppanel.setVisible(false);
-                    Ppanel2.setVisible(false);
-                    Hb.setVisible(true);
-                    Hb1.setVisible(true);
-                    Hb2.setVisible(true);
-                    Hlabel.setVisible(true);
-                    Create.setVisible(true);
-                    Epanel2.setVisible(false);
-                    Hpanel2.setVisible(false);
-                    Cpanel.setVisible(false);
-                }
-                
-                else if(e.getSource()==Hb)
-                {
-                    Hpanel.setVisible(false);
-                    Hb1.setVisible(false);
-                    Hlabel.setVisible(false);
-                    Hb2.setVisible(false);
-                    Epanel.setVisible(true);
-                    Ppanel.setVisible(false);
-                    Hb.setVisible(false);
-                    Epanel2.setVisible(false);
-                    Ppanel2.setVisible(false);
-                    Create.setVisible(false);
-                }
-                else if(e.getSource()==Hb1)
-                {
-                        Hb.setVisible(false);
-                        Hpanel.setVisible(true);
-                        Hb1.setVisible(false);
-                        Hlabel.setVisible(false);
-                        Hb2.setVisible(false);
-                        Epanel.setVisible(false);
-                        Ppanel.setVisible(false);
-                        Ppanel2.setVisible(false);
-                        Create.setVisible(false);
-                
-                }
-                else if(e.getSource()==Hb2)
-                {
-                    Hb.setVisible(false);
-                    Hb1.setVisible(false);
-                    Hlabel.setVisible(false);
-                    Hb2.setVisible(false);
-                    Epanel.setVisible(false);
-                    Ppanel.setVisible(true);
-                    Hpanel.setVisible(false);
-                    Ppanel2.setVisible(false);
-                    Create.setVisible(false);
-                }
-        }
-        }
-        MyListener ml = new MyListener();
-        Hb.addActionListener(ml);
-        Hb2.addActionListener(ml);
-        Hb1.addActionListener(ml);
-        EXIT.addActionListener(ml);
-        EXIT2.addActionListener(ml);
-        EXIT3.addActionListener(ml);
-        EXIT_A.addActionListener(ml);
-        SHUFFLE.addActionListener(ml);
-        SHUFFLE_A.addActionListener(ml);
-        EXIT2_A.addActionListener(ml);
-        SHUFFLE2.addActionListener(ml);
-        SHUFFLE2_A.addActionListener(ml);
-        EXIT3.addActionListener(ml);
-        EXIT3_A.addActionListener(ml);
-        SHUFFLE3.addActionListener(ml);
-        SHUFFLE3_A.addActionListener(ml);
-        Create.addActionListener(ml);
-        Save.addActionListener(ml);
+            }
+        });
+        Hframe.setVisible(true);
     }
 }
 class Taken 
@@ -635,5 +454,216 @@ class Taken
         S2.add(TMb1);
         S2.add(TMb2);
         S2.add(TMb3);
+        class MyListener implements ActionListener
+        {
+            @Override
+            public void actionPerformed(ActionEvent g)
+            {
+                if(g.getSource() == TMb)
+                {
+                    new TakenHappy();
+                }
+            }
+        }
+        MyListener ml = new MyListener();
+        TMb.addActionListener(ml);
+    }
+}
+
+
+class TakenHappy {
+    private JButton Hb, Hb1, Hb2;
+    private JFrame Hframe;
+    private JLabel Hlabel;
+    private Container H1;
+    private JPanel panel, Hpanel, Ppanel;
+    private JTable table, Htable, Ptable;
+    private JScrollPane scrollPane, HscrollPane, PscrollPane;
+    private Cursor cur;
+    
+
+    public TakenHappy() {
+        Hframe = new JFrame("MusicForMood");
+        Hframe.setSize(1500, 700);
+        Hframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Hframe.setLocation(20, 50);
+        Hframe.setResizable(false);
+
+        H1 = Hframe.getContentPane();
+        H1.setBackground(new Color(229, 209, 250));
+
+        Hlabel = new JLabel("Choose language");
+        Hlabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+        Hlabel.setBounds(650, 25, 300, 100);
+
+        Hb = new JButton("English");
+        Hb.setBounds(140, 110, 100, 100);
+        Hb.setBackground(new Color(255, 244, 210));
+
+        Hb1 = new JButton("Hindi");
+        Hb1.setBounds(140, 250, 100, 100);
+        Hb1.setBackground(new Color(255, 244, 210));
+
+        Hb2 = new JButton("Punjabi");
+        Hb2.setBounds(140, 390, 100, 100);
+        Hb2.setBackground(new Color(255, 244, 210));
+
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBounds(1000,30,280,500);
+        panel.setVisible(false); 
+        panel.setBackground(new Color(236, 242, 255));
+        panel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+
+        table = new JTable();
+        table.setRowHeight(30);
+        scrollPane = new JScrollPane(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        Hpanel = new JPanel();
+        Hpanel.setLayout(new BorderLayout());
+        Hpanel.setBounds(1000,30,280,500);
+        Hpanel.setVisible(false); 
+        Hpanel.setBackground(new Color(236, 242, 255));
+        Hpanel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+
+        Htable = new JTable();
+        Htable.setRowHeight(30);
+        HscrollPane = new JScrollPane(Htable);
+        Hpanel.add(HscrollPane, BorderLayout.CENTER);
+
+        Ppanel = new JPanel();
+        Ppanel.setLayout(new BorderLayout());
+        Ppanel.setBounds(1000,30,280,500);
+        Ppanel.setVisible(false); 
+        Ppanel.setBackground(new Color(236, 242, 255));
+        Ppanel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+
+        Ptable = new JTable();
+        Ptable.setRowHeight(30);
+        PscrollPane = new JScrollPane(Ptable);
+        Ppanel.add(PscrollPane, BorderLayout.CENTER);
+
+        H1.setLayout(null);
+        H1.add(Hlabel);
+        H1.add(Hb);
+        H1.add(Hb1);
+        H1.add(Hb2);
+        H1.add(panel);
+        H1.add(Hpanel);
+        H1.add(Ppanel);
+
+        cur = new Cursor(Cursor.HAND_CURSOR);
+        Hb.setCursor(cur);
+        Hb1.setCursor(cur);
+        Hb2.setCursor(cur);
+
+        Hb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    Conn c = new Conn();
+                    String query = "SELECT * FROM TakenEngplaylist";
+                    ResultSet resultSet = c.stmt.executeQuery(query);
+                    DefaultTableModel model = new DefaultTableModel();
+
+                    ResultSetMetaData metaData = resultSet.getMetaData();
+                    int columnCount = metaData.getColumnCount();
+                    for (int i = 1; i <= columnCount; i++) {
+                        model.addColumn(metaData.getColumnName(i));
+                    }
+
+                    while (resultSet.next()) {
+                        Object[] rowData = new Object[columnCount];
+                        for (int i = 0; i < columnCount; i++) {
+                            rowData[i] = resultSet.getObject(i + 1);
+                        }
+                        model.addRow(rowData);
+                    }
+                    table.setModel(model);
+                    panel.setVisible(true); 
+                    Hpanel.setVisible(false);
+                    Ppanel.setVisible(false);
+                    resultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+                }
+            }
+        });
+        Hb1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent Hin) {
+                try {
+                    Conn c = new Conn();
+                    String Hquery = "SELECT * FROM Takenplaylist";
+                    ResultSet HresultSet = c.stmt.executeQuery(Hquery);
+                    DefaultTableModel Hmodel = new DefaultTableModel();
+
+                    ResultSetMetaData HmetaData = HresultSet.getMetaData();
+                    int HcolumnCount = HmetaData.getColumnCount();
+                    for (int i = 1; i <= HcolumnCount; i++) {
+                        Hmodel.addColumn(HmetaData.getColumnName(i));
+                    }
+
+                    while (HresultSet.next()) {
+                        Object[] HrowData = new Object[HcolumnCount];
+                        for (int i = 0; i < HcolumnCount; i++) {
+                            HrowData[i] = HresultSet.getObject(i + 1);
+                        }
+                        Hmodel.addRow(HrowData);
+                    }
+
+                    Htable.setModel(Hmodel);
+                    panel.setVisible(false);
+                    Hpanel.setVisible(true);
+                    Ppanel.setVisible(false);
+                    
+                    HresultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+                }
+            }
+        });
+        Hb2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent Hin) {
+                try {
+                    Conn c = new Conn();
+                    String Pquery = "SELECT * FROM PunjabiTakenplaylist";
+                    ResultSet PresultSet = c.stmt.executeQuery(Pquery);
+                    DefaultTableModel Pmodel = new DefaultTableModel();
+
+                    ResultSetMetaData PmetaData = PresultSet.getMetaData();
+                    int PcolumnCount = PmetaData.getColumnCount();
+                    for (int i = 1; i <= PcolumnCount; i++) {
+                        Pmodel.addColumn(PmetaData.getColumnName(i));
+                    }
+
+                    while (PresultSet.next()) {
+                        Object[] ProwData = new Object[PcolumnCount];
+                        for (int i = 0; i < PcolumnCount; i++) {
+                            ProwData[i] = PresultSet.getObject(i + 1);
+                        }
+                        Pmodel.addRow(ProwData);
+                    }
+
+                    Ptable.setModel(Pmodel);
+                    panel.setVisible(false);
+                    Hpanel.setVisible(false);
+                    Ppanel.setVisible(true);
+ 
+                    PresultSet.close();
+                    c.stmt.close(); 
+                    c.c.close(); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+                }
+            }
+        });
+        Hframe.setVisible(true);
     }
 }
