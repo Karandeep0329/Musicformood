@@ -4,16 +4,14 @@ public class Conn {
     Statement stmt;
     public Conn()
     {
-
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/musicformood","root","Luciefer");
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/musicformood","root","Password");
             stmt = c.createStatement();
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
+;        }
+        catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
     }
 }
